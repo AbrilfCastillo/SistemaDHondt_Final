@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="informeCargos" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="84bb467f-fe0a-49c9-ac7b-c2d65c2bc8b1">
+	<property name="ireport.zoom" value="1.61051000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<subDataset name="dataset1" uuid="ce173dc5-be33-4186-b2e7-582fef3acf2c"/>
+	<queryString>
+		<![CDATA[SELECT p.id, p.nombre, p.votos, r.orden, r.cantidadVotos, r.indice, r.porcentaje, r.totalVotos,
+       (SELECT COUNT(*) FROM resultadovotos r2 WHERE r2.fk_idPartido = p.id) AS cantidadCargos
+FROM partidos p INNER JOIN resultadovotos r ON p.id = r.fk_idPartido
+ORDER BY p.id, r.orden]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="votos" class="java.lang.Integer"/>
+	<field name="orden" class="java.lang.Integer"/>
+	<field name="cantidadVotos" class="java.lang.Integer"/>
+	<field name="indice" class="java.lang.Integer"/>
+	<field name="porcentaje" class="java.lang.Double"/>
+	<field name="totalVotos" class="java.lang.Integer"/>
+	<field name="CANTIDADCARGOS" class="java.lang.Long"/>
+	<group name="nombre">
+		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="39">
+				<staticText>
+					<reportElement style="Column header" x="178" y="21" width="55" height="16" forecolor="#000000" uuid="02b2de58-e762-453b-be73-987adfee644d"/>
+					<text><![CDATA[Nro. ord.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="249" y="21" width="92" height="16" forecolor="#000000" uuid="0e3a5250-ef34-4410-aea7-74a63f91a894"/>
+					<text><![CDATA[Cant. votos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="341" y="21" width="92" height="16" forecolor="#000000" uuid="66e07f55-f77c-4430-90c2-d4b4260790fc"/>
+					<text><![CDATA[Explicacion]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="-1" y="21" width="152" height="16" forecolor="#000000" uuid="b820a531-5619-47db-a5ea-8d250910dc9a"/>
+					<text><![CDATA[Denominacion del partido]]></text>
+				</staticText>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="252" y="21" width="302" height="1" uuid="a3b0263d-5a80-4dcb-9641-70dac52deb9b"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineStyle="Dashed" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="0" y="36" width="555" height="1" forecolor="#000000" uuid="5a363968-a86c-4d06-9587-ddef3565a594"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement style="Column header" x="252" y="6" width="107" height="15" forecolor="#000000" uuid="e2939067-1f4e-4173-9e0d-0c1e39ca7442"/>
+					<text><![CDATA[Total de votos →]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement style="Detail" x="354" y="6" width="60" height="15" uuid="cdc5aaae-109f-417c-a67e-ce03bc2ba37d"/>
+					<textFieldExpression><![CDATA[$F{cantidadVotos}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00 %">
+					<reportElement style="Detail" x="494" y="6" width="51" height="15" uuid="abb2b5d6-678a-4b4e-b7f0-86f4a2086369"/>
+					<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{porcentaje}) + "%"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="Column header" x="414" y="6" width="80" height="15" forecolor="#000000" uuid="c206ecd4-b76e-42e8-b89b-4d8828284977"/>
+					<text><![CDATA[Porcentaje →]]></text>
+				</staticText>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="-1" y="0" width="557" height="1" uuid="130003ef-63c1-42a3-99c7-4f67b2f676ed"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<staticText>
+					<reportElement style="Column header" x="285" y="5" width="189" height="15" forecolor="#000000" uuid="a56733cc-1022-479f-84df-67ad300d7004"/>
+					<text><![CDATA[Cantidad de cargos ocupados]]></text>
+				</staticText>
+				<textField pattern="#,##0">
+					<reportElement style="Detail" x="474" y="5" width="78" height="15" uuid="71af0cbb-0630-45ed-be8d-fb77a06946fe"/>
+					<textFieldExpression><![CDATA[$F{CANTIDADCARGOS}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="284" y="19" width="271" height="1" uuid="ca9aceef-b76c-47d7-9385-d1e178472cfb"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="0" y="2" width="555" height="1" uuid="cfac3e19-0bbe-43d3-825e-9d9f41c26a00"/>
+					<graphicElement>
+						<pen lineWidth="1.0" lineColor="#000000"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="-1" y="18" width="298" height="33" uuid="a07f8391-3c3c-45f9-afd9-e3e3a5fd3d5c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Reparticion de cargos]]></text>
+			</staticText>
+			<textField pattern="#,##0">
+				<reportElement style="Detail" x="440" y="41" width="112" height="18" uuid="9d3c12e2-ff6e-4a28-945c-f07369cb5c80"/>
+				<textElement>
+					<font fontName="Arial" size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{totalVotos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="311" y="41" width="122" height="18" forecolor="#009999" uuid="67d9a23b-abe6-4987-b7a5-fd9ec9b939ef"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[Total de votos →]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="15" forecolor="#E5E5E5" backcolor="#E5E5E5" uuid="55ded6ed-eddd-44ca-8eb1-0512485e1f09">
+					<printWhenExpression><![CDATA[$V{REPORT_COUNT} % 2 == 0]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField pattern="#,##0">
+				<reportElement style="Detail" x="168" y="0" width="71" height="15" uuid="780af450-8724-4b02-937f-cd9b8fef8db5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{orden}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement style="Detail" x="239" y="0" width="86" height="15" uuid="41b3ffdd-7ea8-483e-b27a-e1b37bc49456"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidadVotos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="1" y="0" width="150" height="15" uuid="f9931146-c48d-43e1-b354-2ef5e1ea82c8"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement style="Detail" x="341" y="0" width="204" height="15" uuid="12e2d354-8cb9-4b36-8b99-63ca3eb9008b"/>
+				<textFieldExpression><![CDATA["= Votos " + new java.text.DecimalFormat("#,##0").format($F{votos}) + " / " + $F{indice} + " indice"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="abfb32ec-2772-475e-9434-ea4038193fb7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="2" y="0" width="195" height="20" uuid="b174850e-95a3-47c3-8afb-07503657bd42"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<elementGroup>
+				<textField>
+					<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="1e2cb35e-802c-43b0-a213-0b6be55a1c0b"/>
+					<textElement textAlignment="Right">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+				</textField>
+			</elementGroup>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
