@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.paneles;
 
 import vista.componentes.Estilo;
@@ -28,7 +23,19 @@ public CargarPartido() {
     Estilo.aplicarTextField(txtCantVotos);
     Estilo.aplicarBoton(btnCargar);
     Estilo.aplicarCard(this);
-}
+    
+    this.addAncestorListener(new javax.swing.event.AncestorListener() {
+        public void ancestorAdded(javax.swing.event.AncestorEvent e) {
+            txtNombrePartido.requestFocusInWindow();
+        }
+        public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
+        public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
+    });
+    
+    // Habilitar ciclo de foco (para volver al inicio al llegar al final)
+    setFocusCycleRoot(true);
+}   
+    //Getters
     public javax.swing.JTextField getTxtNombrePartido() { return txtNombrePartido; }
     public javax.swing.JTextField getTxtCantVotos() { return txtCantVotos; }
     public javax.swing.JButton getBtnCargar() { return btnCargar; }
@@ -67,6 +74,9 @@ public CargarPartido() {
         txtCantVotos.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(188, 194, 207), new java.awt.Color(188, 194, 207)));
 
         btnCargar.setText("Cargar");
+        btnCargar.setBorderPainted(false);
+        btnCargar.setContentAreaFilled(false);
+        btnCargar.setFocusPainted(false);
 
         lblIngrese.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblIngrese.setForeground(new java.awt.Color(61, 75, 102));

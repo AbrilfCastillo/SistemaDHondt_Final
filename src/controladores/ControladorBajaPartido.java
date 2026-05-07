@@ -5,6 +5,7 @@ import servicios.PartidoService;
 import vista.paneles.BajaPartido;
 import java.util.List;
 import javax.swing.JOptionPane;
+import vista.componentes.Estilo;
 
 public class ControladorBajaPartido {
 
@@ -29,6 +30,8 @@ public class ControladorBajaPartido {
 
     private void iniciarEventos() {
         vista.getBtnDarBaja().addActionListener(e -> darBaja());
+        Estilo.configurarTeclado(vista.getCmbPartidos());
+        Estilo.configurarTeclado(vista.getBtnDarBaja());
     }
 
     private void darBaja() {

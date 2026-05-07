@@ -79,7 +79,7 @@ ORDER BY p.id]]>
 			<textField>
 				<reportElement x="247" y="29" width="20" height="57" uuid="e3461d26-3c92-4426-bb2c-e1ea21762581"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial Unicode MS" size="13" isBold="true"/>
+					<font fontName="Arial" size="13" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{ENTRAPORCENTAJE} ? "\u2713" : "\u2717")]]></textFieldExpression>
 			</textField>

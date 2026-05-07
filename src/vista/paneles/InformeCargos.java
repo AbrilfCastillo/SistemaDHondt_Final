@@ -32,7 +32,18 @@ public class InformeCargos extends javax.swing.JPanel {
         Estilo.aplicarComboBox(cmbPorcentaje);
         Estilo.aplicarBoton(btnAceptar);
         Estilo.aplicarCard(this);
+        
 
+        this.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent e) {
+                txtCantCargos.requestFocusInWindow();
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
+            public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
+        });
+
+        setFocusCycleRoot(true);
+    
         // Redimensiona el viewer si el panel cambia de tamaño
         addComponentListener(new ComponentAdapter() {
             @Override

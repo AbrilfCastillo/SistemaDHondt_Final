@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import vista.componentes.Estilo;
 
 /**
  * Controlador que gestiona la generacion del informe de reparticion de cargos.
@@ -30,7 +31,9 @@ public class ControladorInformeCargos {
     private static final String RUTA_JRXML = "/informes/informeCargos.jrxml";
 
     /** Opciones de porcentaje minimo disponibles para filtrar partidos. */
-    private static final String[] OPCIONES_PORCENTAJE = {"0%", "1%", "2%", "3%", "5%", "10%"};
+    private static final String[] OPCIONES_PORCENTAJE = java.util.stream.IntStream.rangeClosed(1, 100)
+    .mapToObj(i -> i + "%")
+    .toArray(String[]::new);
 
     /**
      * Inicializa el controlador, carga las opciones del combo y registra los eventos.
@@ -57,6 +60,9 @@ public class ControladorInformeCargos {
      */
     private void iniciarEventos() {
         vista.getBtnAceptar().addActionListener(e -> calcular());
+        Estilo.configurarTeclado(vista.getTxtCantCargos());
+        Estilo.configurarTeclado(vista.getCmbPorcentaje());
+        Estilo.configurarTeclado(vista.getBtnAceptar());
     }
 
     /**

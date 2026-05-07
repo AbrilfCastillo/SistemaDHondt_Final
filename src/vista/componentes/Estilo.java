@@ -84,7 +84,8 @@ public class Estilo {
         btn.setForeground(Color.WHITE);
         btn.setFont(BOTON);
         btn.setFocusPainted(false);
-        btn.setBorder(new EmptyBorder(10, 20, 10, 20));
+        btn.setBorderPainted(false);
+        btn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btn.setPreferredSize(new Dimension(140, 40));
         btn.setMaximumSize(new Dimension(140, 40));
@@ -102,7 +103,39 @@ public class Estilo {
             }
         });
     }
+    
+    // Boton nav
+    public static void aplicarBotonNav(JButton btn) {
+        aplicarBoton(btn);
 
+        Dimension tamNav = new Dimension(33, 33); 
+        btn.setPreferredSize(tamNav);
+        btn.setMaximumSize(tamNav);
+        btn.setMinimumSize(tamNav);
+    }
+    
+    public static void configurarTeclado(java.awt.Component comp) {
+        comp.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case java.awt.event.KeyEvent.VK_ENTER:
+                        if (comp instanceof javax.swing.JButton) {
+                            ((javax.swing.JButton) comp).doClick(); // Ejecuta botón
+                        } else {
+                            comp.transferFocus(); // Salta al siguiente
+                        }
+                        break;
+                    case java.awt.event.KeyEvent.VK_DOWN:
+                        comp.transferFocus(); // Flecha abajo -> Siguiente
+                        break;
+                    case java.awt.event.KeyEvent.VK_UP:
+                        comp.transferFocusBackward(); // Flecha arriba -> Anterior
+                        break;
+                }
+            }
+        });
+    }
     // 🔳 TEXTFIELD
     public static void aplicarTextField(JTextField txt) {
         txt.setFont(TEXTO_FUENTE);
@@ -138,42 +171,6 @@ public class Estilo {
         combo.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
-    // 📊 TABLA
-    public static void aplicarTabla(JTable tbl) {
-
-        // encabezado
-        JTableHeader header = tbl.getTableHeader();
-        header.setBackground(AZUL_PRIMARIO);
-        header.setForeground(Color.WHITE);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 13));
-
-        // filas
-        tbl.setFont(TEXTO_FUENTE);
-        tbl.setRowHeight(28);
-        tbl.setSelectionBackground(new Color(220, 230, 240));
-        tbl.setSelectionForeground(Color.BLACK);
-
-        tbl.setShowVerticalLines(false);
-        tbl.setGridColor(new Color(230, 230, 230));
-
-        // zebra effect (filas alternadas)
-        tbl.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(
-                    JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-
-                Component c = super.getTableCellRendererComponent(
-                        table, value, isSelected, hasFocus, row, column);
-
-                if (!isSelected) {
-                    c.setBackground(row % 2 == 0 ? Color.WHITE : GRIS_SUAVE);
-                }
-
-                return c;
-            }
-        });
-    }
         // 🖼 LABEL CON IMAGEN RESPONSIVA
     public static void aplicarImagenResponsive(JLabel lbl, String ruta) {
 
@@ -197,6 +194,7 @@ public class Estilo {
             }
         });
     }
+    
     // 📦 PANEL TIPO CARD (formulario)
     public static void aplicarCard(JPanel panel) {
         panel.setBackground(Color.WHITE);

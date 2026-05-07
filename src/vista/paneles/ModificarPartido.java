@@ -1,5 +1,6 @@
 package vista.paneles;
 
+import java.awt.Dimension;
 import modelo.Partido;
 import java.awt.HeadlessException;
 import java.util.List;
@@ -24,12 +25,29 @@ public class ModificarPartido extends javax.swing.JPanel {
         Estilo.aplicarTextField(txtNombrePartido);
         Estilo.aplicarTextField(ftxtCantVotos);
         Estilo.aplicarTextField(txtFiltro);
-        Estilo.aplicarBoton(btnAnterior);
-        Estilo.aplicarBoton(btnPosterior);
-        Estilo.aplicarBoton(btnFin);
-        Estilo.aplicarBoton(btnPrincipio);
+        Estilo.aplicarBotonNav(btnAnterior);
+        Estilo.aplicarBotonNav(btnPosterior);
+        Estilo.aplicarBotonNav(btnFin);
+        Estilo.aplicarBotonNav(btnPrincipio);
         Estilo.aplicarBoton(btnCargar);
+        Estilo.aplicarBoton(btnBorrarFiltro);
         Estilo.aplicarCard(this);
+        
+        this.addAncestorListener(new javax.swing.event.AncestorListener() {
+        public void ancestorAdded(javax.swing.event.AncestorEvent e) {
+            txtFiltro.requestFocusInWindow();
+        }
+        public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
+        public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
+        });
+        
+        btnCargar.setPreferredSize(new Dimension(100,30));
+        btnCargar.setMaximumSize(new Dimension(100,30));
+        btnCargar.setMinimumSize(new Dimension(100,30));
+        
+        btnBorrarFiltro.setPreferredSize(new Dimension(80,30));
+        btnBorrarFiltro.setMaximumSize(new Dimension(80,30));
+        btnBorrarFiltro.setMinimumSize(new Dimension(80,30));
     }
     
     /**
@@ -140,8 +158,45 @@ public class ModificarPartido extends javax.swing.JPanel {
             System.out.println(e);
         }
     }
+    
+        // Getters para campos de texto y filtros
+    public javax.swing.JTextField getTxtFiltro() {
+        return txtFiltro;
+    }
 
-    public javax.swing.JButton getBtnCargar() { return btnCargar; }
+    public javax.swing.JButton getBtnBorrarFiltro() {
+        return btnBorrarFiltro;
+    }
+
+    public javax.swing.JTextField getTxtNombrePartido() {
+        return txtNombrePartido;
+    }
+
+    public javax.swing.JFormattedTextField getFtxtCantVotos() {
+        return ftxtCantVotos;
+    }
+
+    // Getters para botones de navegación
+    public javax.swing.JButton getBtnPrincipio() {
+        return btnPrincipio;
+    }
+
+    public javax.swing.JButton getBtnAnterior() {
+        return btnAnterior;
+    }
+
+    public javax.swing.JButton getBtnPosterior() {
+        return btnPosterior;
+    }
+
+    public javax.swing.JButton getBtnFin() {
+        return btnFin;
+    }
+
+    // Getter para el botón de acción (Guardar/Actualizar)
+    public javax.swing.JButton getBtnCargar() {
+        return btnCargar;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -275,7 +330,8 @@ public class ModificarPartido extends javax.swing.JPanel {
             }
         });
 
-        btnBorrarFiltro.setText("Borrar filtro");
+        btnBorrarFiltro.setText("Borrar");
+        btnBorrarFiltro.setBorderPainted(false);
         btnBorrarFiltro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarFiltroActionPerformed(evt);
@@ -311,47 +367,51 @@ public class ModificarPartido extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblModifique)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
+                            .addComponent(sepTituloForm)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDatos)
-                                    .addGap(247, 247, 247))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(lblCantVotos)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(ftxtCantVotos))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                            .addComponent(lblNombrePartido)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                                            .addComponent(txtNombrePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(82, 82, 82)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblCantVotos)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ftxtCantVotos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblModifique)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblFiltro)
+                                                .addGap(18, 18, 18))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(lblNombrePartido)
+                                                .addGap(80, 80, 80)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtNombrePartido, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(btnBorrarFiltro)))))
+                                .addGap(0, 769, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFiltro)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBorrarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
                                 .addComponent(btnPrincipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCargar)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnPosterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 736, Short.MAX_VALUE))
-                    .addComponent(sepTituloForm))
+                                .addComponent(lblGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPosterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(136, 136, 136)
+                                .addComponent(btnCargar)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -365,7 +425,7 @@ public class ModificarPartido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFiltro)
-                    .addComponent(btnBorrarFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBorrarFiltro))
                 .addGap(34, 34, 34)
                 .addComponent(lblDatos)
                 .addGap(18, 18, 18)
@@ -376,16 +436,16 @@ public class ModificarPartido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantVotos)
                     .addComponent(ftxtCantVotos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPrincipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPosterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblGuia))
-                .addGap(30, 30, 30)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPrincipio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPosterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblGuia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
                 .addComponent(btnCargar)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     

@@ -5,6 +5,7 @@ import servicios.PartidoService;
 import vista.paneles.ModificarPartido;
 import java.util.List;
 import javax.swing.JOptionPane;
+import vista.componentes.Estilo;
 
 /**
  * Controlador que gestiona la logica de modificacion de partidos politicos.
@@ -29,6 +30,15 @@ public class ControladorModificarPartido {
      */
     private void iniciarEventos() {
         vista.getBtnCargar().addActionListener(e -> actualizar());
+        Estilo.configurarTeclado(vista.getTxtFiltro());
+        Estilo.configurarTeclado(vista.getBtnBorrarFiltro());
+        Estilo.configurarTeclado(vista.getTxtNombrePartido());
+        Estilo.configurarTeclado(vista.getFtxtCantVotos());
+        Estilo.configurarTeclado(vista.getBtnPrincipio());
+        Estilo.configurarTeclado(vista.getBtnAnterior());
+        Estilo.configurarTeclado(vista.getBtnPosterior());
+        Estilo.configurarTeclado(vista.getBtnFin());
+        Estilo.configurarTeclado(vista.getBtnCargar());
     }
 
     /**

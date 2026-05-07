@@ -3,6 +3,7 @@ package controladores;
 import servicios.PartidoService;
 import vista.paneles.CargarPartido;
 import javax.swing.JOptionPane;
+import vista.componentes.Estilo;
 
 public class ControladorCargarPartido {
 
@@ -13,9 +14,13 @@ public class ControladorCargarPartido {
         iniciarEventos();
     }
 
-    private void iniciarEventos() {
-        vista.getBtnCargar().addActionListener(e -> cargar());
-    }
+private void iniciarEventos() {
+    vista.getBtnCargar().addActionListener(e -> cargar());
+
+    Estilo.configurarTeclado(vista.getTxtNombrePartido());
+    Estilo.configurarTeclado(vista.getTxtCantVotos());
+    Estilo.configurarTeclado(vista.getBtnCargar());
+}
 
     private void cargar() {
         String nombre = vista.getTxtNombrePartido().getText().trim();

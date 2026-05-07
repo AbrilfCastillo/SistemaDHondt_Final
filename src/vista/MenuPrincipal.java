@@ -19,6 +19,7 @@ import vista.componentes.BotonMenu;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
+import vista.componentes.Estilo;
  
  
 public class MenuPrincipal extends javax.swing.JFrame {
@@ -55,9 +56,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         InformeCargos o5 = new InformeCargos();
         new ControladorInformeCargos(o5);
         InformeDivision o6 = new InformeDivision();
-        new ControladorInformeDivision(o6);
+        new ControladorInformeDivision(o6, this);
         InformePartidos o7 = new InformePartidos();
-        new ControladorInformePartidos(o7);
+        new ControladorInformePartidos(o7,this);
  
         pnlFormularios.add(o1, "pnlInicio");
         pnlFormularios.add(o2, "pnlCargarPartido");
@@ -134,6 +135,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
             new ImageIcon(getClass().getResource("/recursos/partidosHover.png")),
             null
         );
+        
+        Estilo.configurarTeclado(btnCargarPartido);
+        Estilo.configurarTeclado(btnModificarPartido);
+        Estilo.configurarTeclado(btnBajaPartido);
+        Estilo.configurarTeclado(btnInfCargos);
+        Estilo.configurarTeclado(btnInfDivision);
+        Estilo.configurarTeclado(btnInfPartidos);
     }
  
     private void configurarNavegacion() {
@@ -183,6 +191,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
            JComponent.WHEN_IN_FOCUSED_WINDOW);
     }
 
+    //Getters
+        public vista.componentes.BotonMenu getBtnInfDivision() {
+        return btnInfDivision;}
+        public vista.componentes.BotonMenu getBtnInfPartidos() {
+        return btnInfPartidos;}
+        
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

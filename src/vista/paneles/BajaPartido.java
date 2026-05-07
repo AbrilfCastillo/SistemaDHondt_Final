@@ -24,6 +24,16 @@ public class BajaPartido extends javax.swing.JPanel {
         Estilo.aplicarComboBox(cmbPartidos);
         Estilo.aplicarBoton(btnDarBaja);
         Estilo.aplicarCard(this);
+        
+        this.addAncestorListener(new javax.swing.event.AncestorListener() {
+        public void ancestorAdded(javax.swing.event.AncestorEvent e) {
+            cmbPartidos.requestFocusInWindow();
+        }
+        public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
+        public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
+    });
+    
+    setFocusCycleRoot(true);
     }
         @Override
     public void setVisible(boolean aFlag) {
@@ -79,8 +89,10 @@ public class BajaPartido extends javax.swing.JPanel {
                     .addComponent(sepTituloForm, javax.swing.GroupLayout.PREFERRED_SIZE, 862, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSeleccione)
                     .addComponent(lblElimine)
-                    .addComponent(cmbPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDarBaja))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnDarBaja)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,10 +105,10 @@ public class BajaPartido extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSeleccione)
                 .addGap(18, 18, 18)
-                .addComponent(cmbPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDarBaja)
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbPartidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDarBaja))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

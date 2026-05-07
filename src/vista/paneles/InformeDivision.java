@@ -1,87 +1,51 @@
 package vista.paneles;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.swing.JRViewer;
 import vista.componentes.Estilo;
 
 /**
- * Panel que muestra el informe de division de votos generado con JasperReports.
- * Presenta un boton para generar el informe y luego lo embebe dentro del mismo panel.
+ * Panel que muestra el informe de división de votos generado con JasperReports.
+ * El informe se visualiza directamente al cargar el panel.
  */
 public class InformeDivision extends javax.swing.JPanel {
 
-    private static final String CARD_BOTON   = "boton";
-    private static final String CARD_INFORME = "informe";
-
-    private final CardLayout cardLayout = new CardLayout();
-    private final JPanel     pnlCards   = new JPanel(cardLayout);
-    private       JPanel     pnlViewer;
-
-    private JButton btnGenerar;
+    private JPanel pnlViewer;
 
     /**
-     * Inicializa el panel configurando el CardLayout y los estilos.
+     * Inicializa el panel configurando el layout y aplicando estilos base.
      */
     public InformeDivision() {
-        setLayout(new BorderLayout());
-        configurarCards();
+        initComponents(); // Inicialización de dimensiones de NetBeans
+        setLayout(new BorderLayout()); // Layout para expansión total del informe
         Estilo.aplicarCard(this);
     }
 
     /**
-     * Arma el CardLayout con el boton inicial y el espacio para el informe.
-     */
-    private void configurarCards() {
-        // Card 1: boton para generar
-        JPanel pnlBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnlBoton.setOpaque(false);
-
-        btnGenerar = new JButton("Generar informe");
-        Estilo.aplicarBoton(btnGenerar);
-        pnlBoton.add(btnGenerar);
-
-        pnlCards.setOpaque(false);
-        pnlCards.add(pnlBoton, CARD_BOTON);
-
-        add(pnlCards, BorderLayout.CENTER);
-        cardLayout.show(pnlCards, CARD_BOTON);
-    }
-
-    /**
-     * Muestra el informe JasperReports dentro del panel, reemplazando el boton.
+     * Muestra el informe JasperReports dentro del panel, expandiéndose al centro.
      * @param print resultado del llenado del informe listo para visualizar
      */
     public void mostrarInforme(JasperPrint print) {
+        // Limpieza de visualizaciones previas
         if (pnlViewer != null) {
-            pnlCards.remove(pnlViewer);
+            remove(pnlViewer);
         }
 
         pnlViewer = new JPanel(new BorderLayout());
         pnlViewer.setOpaque(false);
+        
+        // Se agrega el visor del informe generado
         pnlViewer.add(new JRViewer(print), BorderLayout.CENTER);
 
-        pnlCards.add(pnlViewer, CARD_INFORME);
-        cardLayout.show(pnlCards, CARD_INFORME);
+        // Se añade al contenedor principal en la posición central
+        add(pnlViewer, BorderLayout.CENTER);
 
-        pnlCards.revalidate();
-        pnlCards.repaint();
+        // Refrescar componentes visuales
+        revalidate();
+        repaint();
     }
-
-    /**
-     * Vuelve a mostrar el boton, ocultando el informe.
-     */
-    public void mostrarBoton() {
-        cardLayout.show(pnlCards, CARD_BOTON);
-    }
-
-    // Getters
-    public JButton getBtnGenerar() { return btnGenerar; }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

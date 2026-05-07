@@ -27,8 +27,11 @@
                   <Component id="sepTituloForm" alignment="0" min="-2" pref="862" max="-2" attributes="0"/>
                   <Component id="lblSeleccione" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblElimine" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="cmbPartidos" alignment="0" min="-2" pref="208" max="-2" attributes="0"/>
-                  <Component id="btnDarBaja" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cmbPartidos" min="-2" pref="208" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                      <Component id="btnDarBaja" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -44,10 +47,11 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblSeleccione" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="cmbPartidos" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="btnDarBaja" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="359" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cmbPartidos" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDarBaja" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="353" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
