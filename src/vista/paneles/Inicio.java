@@ -69,7 +69,7 @@ public class Inicio extends javax.swing.JPanel {
 
         lblSeleccione.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSeleccione.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSeleccione.setText("Seleccione una opcion del menu para comenzar");
+        lblSeleccione.setText("Seleccione una opción del menú para comenzar");
         lblSeleccione.setAlignmentX(0.5F);
         lblSeleccione.setInheritsPopupMenu(false);
         add(lblSeleccione);
@@ -79,7 +79,7 @@ public class Inicio extends javax.swing.JPanel {
         lblInfo.setForeground(new java.awt.Color(123, 149, 189));
         lblInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/info.png"))); // NOI18N
-        lblInfo.setText("<html>Este sistema permite gestionar partidos politicos, votos y calcular<br>la distribucion de cargos utilizando el metodo D'Hondt<html>");
+        lblInfo.setText("<html>Este sistema permite gestionar partidos políticos, votos y calcular<br>la distribución de cargos utilizando el método D'Hondt<html>");
         lblInfo.setAlignmentX(0.5F);
         lblInfo.setInheritsPopupMenu(false);
         add(lblInfo);

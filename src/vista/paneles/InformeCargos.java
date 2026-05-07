@@ -161,7 +161,7 @@ public class InformeCargos extends javax.swing.JPanel {
                                 .addGap(12, 12, 12)
                                 .addComponent(lblPorcentaje))
                             .addComponent(cmbPorcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 260, Short.MAX_VALUE)))
+                        .addGap(0, 295, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(139, 139, 139)

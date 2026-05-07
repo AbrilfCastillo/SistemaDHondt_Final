@@ -1,11 +1,12 @@
 package vista;
-
+ 
 import controladores.ControladorBajaPartido;
 import controladores.ControladorCargarPartido;
 import controladores.ControladorInformeCargos;
 import controladores.ControladorModificarPartido;
 import controladores.ControladorInformeDivision;
 import controladores.ControladorInformePartidos;
+import dao.SistemaDAO;
 import vista.paneles.InformeDivision;
 import vista.paneles.InformePartidos;
 import vista.paneles.Inicio;
@@ -18,24 +19,31 @@ import vista.componentes.BotonMenu;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
-
-
+ 
+ 
 public class MenuPrincipal extends javax.swing.JFrame {
-
+ 
     public MenuPrincipal() {
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH); //Pantalla completa
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(900, 650));
         cerrarPrograma();
         configurarBotonesMenu();
         configurarNavegacion();
-
-        //Menu lateral
+ 
+        // Menu lateral
         pnlMenu.setPreferredSize(new Dimension(250, 0));
         pnlMenu.setMinimumSize(new Dimension(250, 0));
         pnlMenu.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
+ 
+ 
+        //centrar btnReset dentro del BoxLayout
+        btnReset.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnReset.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-
+ 
+        //funcionalidad del boton reset
+        btnReset.addActionListener(e -> resetearDatos());
+ 
         // Paneles
         Inicio o1 = new Inicio();
         CargarPartido o2 = new CargarPartido();
@@ -50,7 +58,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         new ControladorInformeDivision(o6);
         InformePartidos o7 = new InformePartidos();
         new ControladorInformePartidos(o7);
-
+ 
         pnlFormularios.add(o1, "pnlInicio");
         pnlFormularios.add(o2, "pnlCargarPartido");
         pnlFormularios.add(o3, "pnlModificarPartido");
@@ -58,96 +66,107 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pnlFormularios.add(o5, "pnlInformeCargos");
         pnlFormularios.add(o6, "pnlInformeDivision");
         pnlFormularios.add(o7, "pnlInformePartidos");
-
+ 
         // Panel inicial
         mostrarPanel("pnlInicio", "Inicio", null);
-
-    
-}
+    }
+ 
+    /**
+     * Pide confirmacion y elimina todos los datos del sistema usando SistemaDAO.
+     * Vuelve al panel de inicio tras el reseteo.
+     */
+    private void resetearDatos() {
+        int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro de que desea eliminar todos los datos del sistema?\nEsta acción no se puede deshacer.",
+            "Confirmar reseteo",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
+        );
+ 
+        if (confirm == JOptionPane.YES_OPTION) {
+            SistemaDAO.eliminarDatos();
+            JOptionPane.showMessageDialog(this, "Todos los datos fueron eliminados correctamente.");
+            mostrarPanel("pnlInicio", "Inicio", null);
+        }
+    }
+ 
     private void configurarBotonesMenu() {
-
+ 
         btnCargarPartido.setText("Cargar");
         btnCargarPartido.setIconos(
             new ImageIcon(getClass().getResource("/recursos/cargarPartidoNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/cargarPartidoHover.png")),
             null
         );
-
+ 
         btnModificarPartido.setText("Modificar");
         btnModificarPartido.setIconos(
             new ImageIcon(getClass().getResource("/recursos/modificarPartidoNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/modificarPartidoHover.png")),
             null
         );
-
+ 
         btnBajaPartido.setText("Dar de baja");
         btnBajaPartido.setIconos(
             new ImageIcon(getClass().getResource("/recursos/bajaPartidoNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/bajaPartidoHover.png")),
             null
         );
-
+ 
         btnInfCargos.setText("Reparticion de cargos");
         btnInfCargos.setIconos(
             new ImageIcon(getClass().getResource("/recursos/cargosNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/cargosHover.png")),
             null
         );
-
+ 
         btnInfDivision.setText("Division de votos");
         btnInfDivision.setIconos(
             new ImageIcon(getClass().getResource("/recursos/divisionNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/divisionHover.png")),
             null
         );
-
+ 
         btnInfPartidos.setText("Partidos politicos");
         btnInfPartidos.setIconos(
             new ImageIcon(getClass().getResource("/recursos/partidosNotHover.png")),
             new ImageIcon(getClass().getResource("/recursos/partidosHover.png")),
             null
         );
-}
-
+    }
+ 
     private void configurarNavegacion() {
-
+ 
         btnCargarPartido.addActionListener(e ->
             mostrarPanel("pnlCargarPartido", "Cargar Partido", btnCargarPartido));
-
+ 
         btnModificarPartido.addActionListener(e ->
             mostrarPanel("pnlModificarPartido", "Modificar Datos", btnModificarPartido));
-
+ 
         btnBajaPartido.addActionListener(e ->
             mostrarPanel("pnlBajaPartido", "Baja de Partido", btnBajaPartido));
-
+ 
         btnInfCargos.addActionListener(e ->
             mostrarPanel("pnlInformeCargos", "Informe de Cargos", btnInfCargos));
-
+ 
         btnInfDivision.addActionListener(e ->
             mostrarPanel("pnlInformeDivision", "Informe Division", btnInfDivision));
-
+ 
         btnInfPartidos.addActionListener(e ->
             mostrarPanel("pnlInformePartidos", "Informe Partidos", btnInfPartidos));
-        }   
-    
+    }
+ 
     private void mostrarPanel(String nombre, String titulo, BotonMenu botonActivo) {
-
-        // cambiar panel
         CardLayout card = (CardLayout) pnlFormularios.getLayout();
         card.show(pnlFormularios, nombre);
-
-        // cambiar titulo
         lblTituloForm.setText(titulo);
-
-        // desactivar todos
         desactivarBotones();
-
-        // activar el seleccionado (solo si existe)
         if (botonActivo != null) {
             botonActivo.setActive(true);
         }
     }
-    
+ 
     private void desactivarBotones() {
         btnCargarPartido.setActive(false);
         btnModificarPartido.setActive(false);
@@ -156,16 +175,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInfDivision.setActive(false);
         btnInfPartidos.setActive(false);
     }
-    
-    //Cerrar el programa al tocar Esc
+ 
     private void cerrarPrograma() {
         getRootPane().registerKeyboardAction(e -> {
             dispose();
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-           JComponent.WHEN_IN_FOCUSED_WINDOW);    
-        }
+           JComponent.WHEN_IN_FOCUSED_WINDOW);
+    }
 
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -199,6 +216,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
         setPreferredSize(new java.awt.Dimension(1200, 700));
+        setResizable(false);
         setSize(new java.awt.Dimension(1200, 700));
 
         pnlMenu.setMaximumSize(new java.awt.Dimension(220, 0));
@@ -239,9 +257,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         lblPartidos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblPartidos.setForeground(new java.awt.Color(255, 255, 255));
+        lblPartidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPartidos.setText("Partidos");
         lblPartidos.setToolTipText("");
+        lblPartidos.setAlignmentX(0.5F);
         lblPartidos.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 15, 0));
+        lblPartidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblPartidos.setInheritsPopupMenu(false);
         pnlBotones.add(lblPartidos);
 
@@ -258,9 +279,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         lblInformes.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblInformes.setForeground(new java.awt.Color(255, 255, 255));
+        lblInformes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblInformes.setText("Informes");
         lblInformes.setToolTipText("");
+        lblInformes.setAlignmentX(0.5F);
         lblInformes.setBorder(javax.swing.BorderFactory.createEmptyBorder(25, 0, 15, 0));
+        lblInformes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblInformes.setInheritsPopupMenu(false);
         pnlBotones.add(lblInformes);
 
@@ -276,15 +300,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pnlBotones.add(btnInfPartidos);
         pnlBotones.add(filler5);
 
-        btnReset.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        btnReset.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
         btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/resetNotHover.png"))); // NOI18N
         btnReset.setText("Resetear datos");
-        btnReset.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 0, 0, 0));
+        btnReset.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 14, 1, 1));
         btnReset.setBorderPainted(false);
         btnReset.setContentAreaFilled(false);
         btnReset.setFocusPainted(false);
         btnReset.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReset.setIconTextGap(10);
         btnReset.setMargin(new java.awt.Insets(2, 2, 2, 2));
         btnReset.setMaximumSize(new java.awt.Dimension(1000, 40));
         btnReset.setMinimumSize(new java.awt.Dimension(200, 40));
@@ -329,15 +354,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -345,25 +362,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException |
+                 IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MenuPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuPrincipal().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler EspTituloCont;
     private javax.swing.Box.Filler EspTituloMenu;
