@@ -1,62 +1,124 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista.paneles;
 
 import vista.componentes.Estilo;
 
 /**
- *
- * @author cielo
+ * Panel encargado de mostrar la interfaz
+ * para eliminar partidos del sistema.
  */
 public class BajaPartido extends javax.swing.JPanel {
 
     /**
-     * Creates new form BajaPartido
+     * Constructor del panel.
+     * Inicializa componentes y aplica estilos.
      */
     public BajaPartido() {
+
         initComponents();
+
+        // Aplicacion de estilos visuales
         Estilo.aplicarSubtitulo(lblElimine);
         Estilo.aplicarTexto(lblSeleccione);
         Estilo.aplicarSeparadorTitulo(sepTituloForm);
         Estilo.aplicarComboBox(cmbPartidos);
         Estilo.aplicarBoton(btnDarBaja);
         Estilo.aplicarCard(this);
-        
-        this.addAncestorListener(new javax.swing.event.AncestorListener() {
-        public void ancestorAdded(javax.swing.event.AncestorEvent e) {
-            cmbPartidos.requestFocusInWindow();
-        }
-        public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
-        public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
-    });
-    
-    setFocusCycleRoot(true);
+
+        /*
+         * Listener que coloca el foco automaticamente
+         * en el combo al mostrar el panel.
+         */
+        this.addAncestorListener(
+            new javax.swing.event.AncestorListener() {
+
+                @Override
+                public void ancestorAdded(
+                    javax.swing.event.AncestorEvent e
+                ) {
+
+                    cmbPartidos.requestFocusInWindow();
+                }
+
+                @Override
+                public void ancestorRemoved(
+                    javax.swing.event.AncestorEvent e
+                ) {
+                }
+
+                @Override
+                public void ancestorMoved(
+                    javax.swing.event.AncestorEvent e
+                ) {
+                }
+            }
+        );
+
+        // Permite controlar la navegacion por foco
+        setFocusCycleRoot(true);
     }
-        @Override
+
+    /**
+     * Detecta cuando el panel se vuelve visible.
+     *
+     * @param aFlag Estado de visibilidad
+     */
+    @Override
     public void setVisible(boolean aFlag) {
+
         super.setVisible(aFlag);
+
+        // Ejecuta evento personalizado al mostrarse
         if (aFlag) {
             notifyVisible();
         }
     }
 
+    // Evento ejecutado cuando el panel se muestra
     private Runnable onVisible;
 
+    /**
+     * Define la accion que se ejecutara
+     * al mostrarse el panel.
+     *
+     * @param onVisible Evento personalizado
+     */
     public void setOnVisible(Runnable onVisible) {
         this.onVisible = onVisible;
     }
 
+    /**
+     * Ejecuta el evento configurado
+     * cuando el panel se vuelve visible.
+     */
     private void notifyVisible() {
+
         if (onVisible != null) {
             onVisible.run();
         }
     }
-    //Getters
-    public javax.swing.JComboBox<String> getCmbPartidos() { return cmbPartidos; }
-    public javax.swing.JButton getBtnDarBaja() { return btnDarBaja; }
+
+    /*
+     * Getters
+     */
+
+    /**
+     * Devuelve el JComboBox de partidos.
+     *
+     * @return ComboBox de partidos
+     */
+    public javax.swing.JComboBox<String> getCmbPartidos() {
+        return cmbPartidos;
+    }
+
+    /**
+     * Devuelve el boton de baja.
+     *
+     * @return Boton para eliminar partido
+     */
+    public javax.swing.JButton getBtnDarBaja() {
+        return btnDarBaja;
+    }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

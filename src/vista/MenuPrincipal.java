@@ -1,5 +1,5 @@
 package vista;
- 
+
 import controladores.ControladorBajaPartido;
 import controladores.ControladorCargarPartido;
 import controladores.ControladorInformeCargos;
@@ -20,46 +20,76 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import vista.componentes.Estilo;
- 
- 
+
+/**
+ * Ventana principal del sistema.
+ * Contiene el menu lateral y la navegacion entre paneles.
+ */
 public class MenuPrincipal extends javax.swing.JFrame {
- 
+
+    // Guarda el nombre del panel actualmente visible
+    private String panelActual = "pnlInicio";
+
+    /**
+     * Constructor principal de la ventana.
+     * Inicializa componentes, controladores y configuraciones.
+     */
     public MenuPrincipal() {
+
         initComponents();
+        
+        // Configuracion general de la ventana
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setMinimumSize(new Dimension(900, 650));
+
+        // Configuracion inicial
         cerrarPrograma();
         configurarBotonesMenu();
         configurarNavegacion();
- 
-        // Menu lateral
+
+        // Configuracion del menu lateral
         pnlMenu.setPreferredSize(new Dimension(250, 0));
         pnlMenu.setMinimumSize(new Dimension(250, 0));
         pnlMenu.setMaximumSize(new Dimension(250, Integer.MAX_VALUE));
- 
- 
-        //centrar btnReset dentro del BoxLayout
+
+        
+        // Centra el boton reset dentro del BoxLayout
         btnReset.setAlignmentX(Component.CENTER_ALIGNMENT);
-        btnReset.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
- 
-        //funcionalidad del boton reset
-        btnReset.addActionListener(e -> resetearDatos());
- 
-        // Paneles
+
+        // Define tamaño maximo del boton
+        btnReset.setMaximumSize(
+            new Dimension(Integer.MAX_VALUE, 40)
+        ); 
+        btnReset.addActionListener(e -> resetearDatos()); // Evento del boton
+
+        /*
+         * Creacion de paneles y controladores
+         */
+
         Inicio o1 = new Inicio();
+
         CargarPartido o2 = new CargarPartido();
         new ControladorCargarPartido(o2);
+
         ModificarPartido o3 = new ModificarPartido();
         new ControladorModificarPartido(o3);
+
         BajaPartido o4 = new BajaPartido();
         new ControladorBajaPartido(o4);
+
         InformeCargos o5 = new InformeCargos();
         new ControladorInformeCargos(o5);
+
         InformeDivision o6 = new InformeDivision();
         new ControladorInformeDivision(o6, this);
+
         InformePartidos o7 = new InformePartidos();
-        new ControladorInformePartidos(o7,this);
- 
+        new ControladorInformePartidos(o7, this);
+
+        /*
+         * Agrega los paneles al CardLayout
+         */
+
         pnlFormularios.add(o1, "pnlInicio");
         pnlFormularios.add(o2, "pnlCargarPartido");
         pnlFormularios.add(o3, "pnlModificarPartido");
@@ -67,75 +97,141 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pnlFormularios.add(o5, "pnlInformeCargos");
         pnlFormularios.add(o6, "pnlInformeDivision");
         pnlFormularios.add(o7, "pnlInformePartidos");
- 
-        // Panel inicial
+
+        // Muestra el panel inicial
         mostrarPanel("pnlInicio", "Inicio", null);
+        SwingUtilities.invokeLater(() -> btnCargarPartido.requestFocusInWindow());
     }
- 
+
     /**
-     * Pide confirmacion y elimina todos los datos del sistema usando SistemaDAO.
-     * Vuelve al panel de inicio tras el reseteo.
+     * Solicita confirmacion y elimina todos los datos
+     * almacenados en el sistema.
      */
     private void resetearDatos() {
+
         int confirm = JOptionPane.showConfirmDialog(
             this,
-            "¿Está seguro de que desea eliminar todos los datos del sistema?\nEsta acción no se puede deshacer.",
+            "¿Esta seguro de que desea eliminar "
+            + "todos los datos del sistema?\n"
+            + "Esta accion no se puede deshacer.",
             "Confirmar reseteo",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.WARNING_MESSAGE
         );
- 
+
+        // Verifica confirmacion del usuario
         if (confirm == JOptionPane.YES_OPTION) {
+
+            // Elimina todos los datos
             SistemaDAO.eliminarDatos();
-            JOptionPane.showMessageDialog(this, "Todos los datos fueron eliminados correctamente.");
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Todos los datos fueron eliminados correctamente."
+            );
+
+            // Regresa al panel inicial
             mostrarPanel("pnlInicio", "Inicio", null);
         }
     }
- 
+
+    /**
+     * Configura textos, iconos y estilos
+     * de los botones del menu lateral.
+     */
     private void configurarBotonesMenu() {
- 
+
         btnCargarPartido.setText("Cargar");
         btnCargarPartido.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/cargarPartidoNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/cargarPartidoHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/cargarPartidoNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/cargarPartidoHover.png"
+                )
+            ),
             null
         );
- 
+
         btnModificarPartido.setText("Modificar");
         btnModificarPartido.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/modificarPartidoNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/modificarPartidoHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/modificarPartidoNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/modificarPartidoHover.png"
+                )
+            ),
             null
         );
- 
+
         btnBajaPartido.setText("Dar de baja");
         btnBajaPartido.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/bajaPartidoNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/bajaPartidoHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/bajaPartidoNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/bajaPartidoHover.png"
+                )
+            ),
             null
         );
- 
+
         btnInfCargos.setText("Reparticion de cargos");
         btnInfCargos.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/cargosNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/cargosHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/cargosNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/cargosHover.png"
+                )
+            ),
             null
         );
- 
+
         btnInfDivision.setText("Division de votos");
         btnInfDivision.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/divisionNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/divisionHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/divisionNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/divisionHover.png"
+                )
+            ),
             null
         );
- 
+
         btnInfPartidos.setText("Partidos politicos");
         btnInfPartidos.setIconos(
-            new ImageIcon(getClass().getResource("/recursos/partidosNotHover.png")),
-            new ImageIcon(getClass().getResource("/recursos/partidosHover.png")),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/partidosNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/partidosHover.png"
+                )
+            ),
             null
         );
-        
+
+        // Configuracion de teclado
         Estilo.configurarTeclado(btnCargarPartido);
         Estilo.configurarTeclado(btnModificarPartido);
         Estilo.configurarTeclado(btnBajaPartido);
@@ -143,39 +239,101 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Estilo.configurarTeclado(btnInfDivision);
         Estilo.configurarTeclado(btnInfPartidos);
     }
- 
+
+    /**
+     * Configura la navegacion entre paneles.
+     */
     private void configurarNavegacion() {
- 
+
         btnCargarPartido.addActionListener(e ->
-            mostrarPanel("pnlCargarPartido", "Cargar Partido", btnCargarPartido));
- 
+            mostrarPanel(
+                "pnlCargarPartido",
+                "Cargar Partido",
+                btnCargarPartido
+            )
+        );
+
         btnModificarPartido.addActionListener(e ->
-            mostrarPanel("pnlModificarPartido", "Modificar Datos", btnModificarPartido));
- 
+            mostrarPanel(
+                "pnlModificarPartido",
+                "Modificar Datos de un Partido",
+                btnModificarPartido
+            )
+        );
+
         btnBajaPartido.addActionListener(e ->
-            mostrarPanel("pnlBajaPartido", "Baja de Partido", btnBajaPartido));
- 
+            mostrarPanel(
+                "pnlBajaPartido",
+                "Dar de baja un Partido",
+                btnBajaPartido
+            )
+        );
+
         btnInfCargos.addActionListener(e ->
-            mostrarPanel("pnlInformeCargos", "Informe de Cargos", btnInfCargos));
- 
+            mostrarPanel(
+                "pnlInformeCargos",
+                "Informe de Reparticion de Cargos",
+                btnInfCargos
+            )
+        );
+
         btnInfDivision.addActionListener(e ->
-            mostrarPanel("pnlInformeDivision", "Informe Division", btnInfDivision));
- 
+            mostrarPanel(
+                "pnlInformeDivision",
+                "Informe de Division de Votos",
+                btnInfDivision
+            )
+        );
+
         btnInfPartidos.addActionListener(e ->
-            mostrarPanel("pnlInformePartidos", "Informe Partidos", btnInfPartidos));
+            mostrarPanel(
+                "pnlInformePartidos",
+                "Informe de Partidos",
+                btnInfPartidos
+            )
+        );
     }
- 
-    private void mostrarPanel(String nombre, String titulo, BotonMenu botonActivo) {
-        CardLayout card = (CardLayout) pnlFormularios.getLayout();
+
+    /**
+     * Muestra un panel especifico del CardLayout.
+     *
+     * @param nombre Nombre del panel
+     * @param titulo Titulo mostrado en pantalla
+     * @param botonActivo Boton seleccionado actualmente
+     */
+    private void mostrarPanel(
+        String nombre,
+        String titulo,
+        BotonMenu botonActivo
+    ) {
+
+        // Obtiene el CardLayout
+        CardLayout card =
+            (CardLayout) pnlFormularios.getLayout();
+
+        // Muestra el panel seleccionado
         card.show(pnlFormularios, nombre);
+
+        // Actualiza el titulo
         lblTituloForm.setText(titulo);
+
+        // Desactiva todos los botones
         desactivarBotones();
+
+        // Activa el boton seleccionado
         if (botonActivo != null) {
             botonActivo.setActive(true);
         }
+
+        // Guarda el panel actual
+        panelActual = nombre;
     }
- 
+
+    /**
+     * Desactiva el estado activo de todos los botones.
+     */
     private void desactivarBotones() {
+
         btnCargarPartido.setActive(false);
         btnModificarPartido.setActive(false);
         btnBajaPartido.setActive(false);
@@ -183,19 +341,50 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInfDivision.setActive(false);
         btnInfPartidos.setActive(false);
     }
- 
+
+    /**
+     * Configura la tecla ESC.
+     * Si esta en inicio, cierra el programa.
+     * Si no, vuelve al panel principal.
+     */
     private void cerrarPrograma() {
-        getRootPane().registerKeyboardAction(e -> {
-            dispose();
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-           JComponent.WHEN_IN_FOCUSED_WINDOW);
+
+        getRootPane().registerKeyboardAction(
+            e -> {
+
+                if ("pnlInicio".equals(panelActual)) {
+
+                    // Cierra la ventana
+                    dispose();
+
+                } else {
+
+                    // Regresa al panel inicio
+                    mostrarPanel(
+                        "pnlInicio",
+                        "Inicio",
+                        null
+                    );
+                }
+
+            },
+            KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+            JComponent.WHEN_IN_FOCUSED_WINDOW
+        );
     }
 
-    //Getters
-        public vista.componentes.BotonMenu getBtnInfDivision() {
-        return btnInfDivision;}
-        public vista.componentes.BotonMenu getBtnInfPartidos() {
-        return btnInfPartidos;}
+    /*
+     * Getters
+     */
+
+    public vista.componentes.BotonMenu getBtnInfDivision() {
+        return btnInfDivision;
+    }
+
+    public vista.componentes.BotonMenu getBtnInfPartidos() {
+        return btnInfPartidos;
+    }
+
         
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

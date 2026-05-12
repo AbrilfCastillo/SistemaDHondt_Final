@@ -8,7 +8,7 @@ import java.awt.event.*;
 
 public class Estilo {
 
-    // 🎨 COLORES
+    //Colores
     public static final Color AZUL_PRIMARIO = new Color(109, 142, 173);
     public static final Color AZUL_HOVER = new Color(90, 122, 150);
     public static final Color AZUL_FOCUS = new Color(120, 160, 200);
@@ -21,19 +21,20 @@ public class Estilo {
 
     public static final Color FONDO_PANEL = new Color(248, 249, 251);
 
-    // 🔤 FUENTES
+    //Fuentes
     public static final Font TITULO = new Font("Segoe UI", Font.BOLD, 20);
     public static final Font SUBTITULO = new Font("Segoe UI", Font.BOLD, 16);
     public static final Font TEXTO_FUENTE = new Font("Segoe UI", Font.PLAIN, 14);
     public static final Font TEXTO_INFO = new Font("Segoe UI", Font.PLAIN, 14);
     public static final Font BOTON = new Font("Segoe UI Semibold", Font.PLAIN, 14);
 
-    // 🧾 TITULO
+    //Titulo
     public static void aplicarTitulo(JLabel lbl) {
         lbl.setFont(TITULO);
         lbl.setForeground(TITULOS);
     }
     
+    //Separador
     public static void aplicarSeparadorTitulo(JSeparator sep) {
 
         sep.setPreferredSize(new Dimension(1, 3));
@@ -60,25 +61,25 @@ public class Estilo {
         sep.setBorder(BorderFactory.createEmptyBorder(8, 0, 12, 0));
     }
     
-    // 🏷 SUBTITULO
+    //Subtitulo
     public static void aplicarSubtitulo(JLabel lbl) {
         lbl.setFont(SUBTITULO);
         lbl.setForeground(TITULOS);
     }
 
-    // 📝 TEXTO NORMAL
+    //Texto Normal
     public static void aplicarTexto(JLabel lbl) {
         lbl.setFont(TEXTO_FUENTE);
         lbl.setForeground(TEXTO);
     }
     
-    // 📝 TEXTO INFO
+    //Texto info
     public static void aplicarInfo(JLabel lbl) {
         lbl.setFont(TEXTO_INFO);
         lbl.setForeground(INFO);
     }
 
-    // 🔘 BOToN
+    //Boton
     public static void aplicarBoton(JButton btn) {
         btn.setBackground(AZUL_PRIMARIO);
         btn.setForeground(Color.WHITE);
@@ -104,7 +105,7 @@ public class Estilo {
         });
     }
     
-    // Boton nav
+    //Boton nav
     public static void aplicarBotonNav(JButton btn) {
         aplicarBoton(btn);
 
@@ -114,6 +115,7 @@ public class Estilo {
         btn.setMinimumSize(tamNav);
     }
     
+    //Configuracion de teclado
     public static void configurarTeclado(java.awt.Component comp) {
         comp.addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
@@ -136,7 +138,8 @@ public class Estilo {
             }
         });
     }
-    // 🔳 TEXTFIELD
+    
+    //Campo de texto
     public static void aplicarTextField(JTextField txt) {
         txt.setFont(TEXTO_FUENTE);
         txt.setBackground(Color.WHITE);
@@ -163,7 +166,7 @@ public class Estilo {
         });
     }
 
-    // 🔽 COMBOBOX
+    //Combobox
     public static void aplicarComboBox(JComboBox<?> combo) {
         combo.setFont(TEXTO_FUENTE);
         combo.setBackground(Color.WHITE);
@@ -171,7 +174,7 @@ public class Estilo {
         combo.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
-        // 🖼 LABEL CON IMAGEN RESPONSIVA
+    //Label con imagen
     public static void aplicarImagenResponsive(JLabel lbl, String ruta) {
 
         ImageIcon icono = new ImageIcon(Estilo.class.getResource(ruta));
@@ -195,7 +198,7 @@ public class Estilo {
         });
     }
     
-    // 📦 PANEL TIPO CARD (formulario)
+    //Panel tipo card
     public static void aplicarCard(JPanel panel) {
         panel.setBackground(Color.WHITE);
 
@@ -208,7 +211,7 @@ public class Estilo {
         ));
     }
 
-    // 📄 SCROLL
+    //Scroll
     public static void aplicarScroll(JScrollPane scroll) {
         scroll.setBorder(new LineBorder(GRIS_BORDE));
         scroll.getViewport().setBackground(Color.WHITE);

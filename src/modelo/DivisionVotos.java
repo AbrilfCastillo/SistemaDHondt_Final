@@ -16,10 +16,10 @@ public class DivisionVotos {
     
     /**
      * @param fk_idPartido identificador del partido al que pertenece esta fila
-     * @param orden posiciin en el ranking global, 0 si no entri al ranking
+     * @param orden posicion en el ranking global, 0 si no entra al ranking
      * @param votosPorCargo resultado de dividir los votos del partido por el indice
-     * @param indice divisor usado en el cilculo (1, 2, 3...)
-     * @param entraPorcentaje true si el partido superi el umbral minimo de porcentaje
+     * @param indice divisor usado en el calculo (1, 2, 3...)
+     * @param entraPorcentaje true si el partido supero el umbral minimo de porcentaje
      * @param ocupaCargo true si este cociente especifico obtuvo un cargo
      */
     public DivisionVotos(int fk_idPartido, int orden, double votosPorCargo, int indice, boolean entraPorcentaje, boolean ocupaCargo) {

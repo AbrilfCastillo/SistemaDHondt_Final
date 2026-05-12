@@ -18,10 +18,10 @@ public class Degradado extends JPanel {
 
         Graphics2D g2 = (Graphics2D) g.create();
 
-        // suavizado de render
+        //suavizado de render
         g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        // 🎨 Degradado principal (vertical)
+        //Degradado principal (vertical)
         GradientPaint vertical = new GradientPaint(
                 0, 0, color1,
                 0, getHeight(), color2
@@ -29,7 +29,7 @@ public class Degradado extends JPanel {
         g2.setPaint(vertical);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
-        // ✨ Luz lateral suave (izquierda → derecha)
+        //Luz lateral suave (izquierda → derecha)
         GradientPaint light = new GradientPaint(
                 0, 0, new Color(255, 255, 255, 40),
                 getWidth(), 0, new Color(255, 255, 255, 0)
@@ -37,7 +37,7 @@ public class Degradado extends JPanel {
         g2.setPaint(light);
         g2.fillRect(0, 0, getWidth(), getHeight());
 
-        // 🎯 Linea separadora derecha
+        //Linea separadora derecha
         g2.setColor(new Color(0, 0, 0, 40));
         g2.drawLine(getWidth() - 1, 0, getWidth() - 1, getHeight());
 

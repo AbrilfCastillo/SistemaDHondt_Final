@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Servicio que centraliza la ligica de negocio relacionada a los partidos politicos.
+ * Servicio que centraliza la logica de negocio relacionada a los partidos politicos.
  * Valida los datos antes de delegarlos al DAO para su persistencia.
  */
 public class PartidoService {
@@ -15,25 +15,25 @@ public class PartidoService {
      * Valida y crea un nuevo partido en la base de datos.
      * @param nombre nombre del partido
      * @param votosT cantidad de votos como String, puede tener separadores de miles
-     * @throws Exception si algin campo esti vacio, el formato es invilido, o los votos son 0 o negativos
+     * @throws Exception si algun campo esta vacio, el formato es invalido, o los votos son 0 o negativos
      */
     public static void crearPartido(String nombre, String votosT) throws Exception{
         
-        // Validando que no estin vacios
+        // Validando que no esten vacios
         if (nombre.isEmpty() || votosT.isEmpty()){
             throw new Exception("No puede haber casillas vacias.");
         }
         
         int votos;
-        try{// try-catch en caso de que valor no sea vilido
+        try{// try-catch en caso de que valor no sea valido
             votos = Integer.parseInt(votosT.replace(".", ""));
             
         } catch (NumberFormatException e){
-            throw new Exception("No es un nimero vilido.");
+            throw new Exception("No es un numero vilido.");
             
         }
         
-        // Si los votos son 0 o menos lanza una excepciin
+        // Si los votos son 0 o menos lanza una excepcion
         if (votos <= 0){
                 throw new Exception("La cantidad de votos no puede ser 0 o menor.");
             }
@@ -54,7 +54,7 @@ public class PartidoService {
      * @param id identificador del partido a actualizar
      * @param nombre nuevo nombre del partido
      * @param votos nueva cantidad de votos
-     * @throws Exception si el nombre esti vacio o los votos son 0 o negativos
+     * @throws Exception si el nombre esta vacio o los votos son 0 o negativos
      */
     public static void actualizarPartido(int id, String nombre, long votos) throws Exception {
 
@@ -71,7 +71,7 @@ public class PartidoService {
     
     /**
      * Filtra una lista de partidos buscando coincidencias en nombre o votos.
-     * La bisqueda por nombre no es sensible a mayisculas y minisculas.
+     * La busqueda por nombre no es sensible a mayusculas y minusculas.
      * @param partidos lista de partidos a filtrar
      * @param texto texto a buscar
      * @return lista de partidos que coinciden con el texto

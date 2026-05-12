@@ -32,23 +32,31 @@ public class ControladorInformeCargos {
 
     /** Opciones de porcentaje minimo disponibles para filtrar partidos. */
     private static final String[] OPCIONES_PORCENTAJE = java.util.stream.IntStream.rangeClosed(1, 100)
-    .mapToObj(i -> i + "%")
-    .toArray(String[]::new);
+        .mapToObj(i -> i + "%")
+        .toArray(String[]::new);
 
     /**
-     * Inicializa el controlador, carga las opciones del combo y registra los eventos.
+     * Inicializa el controlador, carga las opciones del combo, registra los eventos
+     * y configura el callback para cuando el usuario vuelve al formulario desde el informe.
      * @param vista panel del informe de cargos
      */
     public ControladorInformeCargos(InformeCargos vista) {
         this.vista = vista;
         cargarComboPorcentaje();
         iniciarEventos();
+
+        // Cuando el usuario toca "Volver" desde el informe, el formulario se recrea
+        // y hay que reconectar los listeners al nuevo btnAceptar y recargar el combo
+        vista.setOnFormularioRestaurado(() -> {
+            iniciarEventos();
+            cargarComboPorcentaje();
+        });
     }
 
     /**
      * Popula el combo de porcentaje con las opciones predefinidas.
      */
-    private void cargarComboPorcentaje() {
+    void cargarComboPorcentaje() {
         vista.getCmbPorcentaje().removeAllItems();
         for (String opcion : OPCIONES_PORCENTAJE) {
             vista.getCmbPorcentaje().addItem(opcion);
@@ -58,7 +66,7 @@ public class ControladorInformeCargos {
     /**
      * Registra los listeners de los componentes interactivos del panel.
      */
-    private void iniciarEventos() {
+    void iniciarEventos() {
         vista.getBtnAceptar().addActionListener(e -> calcular());
         Estilo.configurarTeclado(vista.getTxtCantCargos());
         Estilo.configurarTeclado(vista.getCmbPorcentaje());

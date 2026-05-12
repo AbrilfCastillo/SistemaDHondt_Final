@@ -3,42 +3,101 @@ package vista.paneles;
 import vista.componentes.Estilo;
 
 /**
- *
- * @author cielo
+ * Panel encargado de la carga de partidos politicos.
+ * Permite ingresar nombre y cantidad de votos.
  */
 public class CargarPartido extends javax.swing.JPanel {
 
     /**
-     * Creates new form CargarDatos
+     * Constructor del panel.
+     * Inicializa componentes y aplica estilos visuales.
      */
-public CargarPartido() {
-    initComponents();
+    public CargarPartido() {
 
-    //Estilos
-    Estilo.aplicarSubtitulo(lblIngrese);
-    Estilo.aplicarTexto(lblNombrePartido);
-    Estilo.aplicarTexto(lblCantVotos);
-    Estilo.aplicarSeparadorTitulo(sepTituloForm);
-    Estilo.aplicarTextField(txtNombrePartido);
-    Estilo.aplicarTextField(txtCantVotos);
-    Estilo.aplicarBoton(btnCargar);
-    Estilo.aplicarCard(this);
+        initComponents();
+
+        /*
+         * Aplicacion de estilos
+         */
+
+        Estilo.aplicarSubtitulo(lblIngrese);
+        Estilo.aplicarTexto(lblNombrePartido);
+        Estilo.aplicarTexto(lblCantVotos);
+        Estilo.aplicarSeparadorTitulo(sepTituloForm);
+
+        Estilo.aplicarTextField(txtNombrePartido);
+        Estilo.aplicarTextField(txtCantVotos);
+
+        Estilo.aplicarBoton(btnCargar);
+        Estilo.aplicarCard(this);
+
+        /*
+         * Listener que coloca el foco automaticamente
+         * en el primer campo al mostrar el panel.
+         */
+        this.addAncestorListener(
+            new javax.swing.event.AncestorListener() {
+
+                @Override
+                public void ancestorAdded(
+                    javax.swing.event.AncestorEvent e
+                ) {
+
+                    txtNombrePartido.requestFocusInWindow();
+                }
+
+                @Override
+                public void ancestorRemoved(
+                    javax.swing.event.AncestorEvent e
+                ) {
+                }
+
+                @Override
+                public void ancestorMoved(
+                    javax.swing.event.AncestorEvent e
+                ) {
+                }
+            }
+        );
+
+        /*
+         * Habilita el ciclo de foco para permitir
+         * volver al inicio al llegar al ultimo componente.
+         */
+        setFocusCycleRoot(true);
+    }
+
+    /*
+     * Getters
+     */
+
+    /**
+     * Devuelve el campo de texto del nombre del partido.
+     *
+     * @return Campo nombre del partido
+     */
+    public javax.swing.JTextField getTxtNombrePartido() {
+        return txtNombrePartido;
+    }
+
+    /**
+     * Devuelve el campo de texto de cantidad de votos.
+     *
+     * @return Campo cantidad de votos
+     */
+    public javax.swing.JTextField getTxtCantVotos() {
+        return txtCantVotos;
+    }
+
+    /**
+     * Devuelve el boton de carga.
+     *
+     * @return Boton cargar
+     */
+    public javax.swing.JButton getBtnCargar() {
+        return btnCargar;
+    }
     
-    this.addAncestorListener(new javax.swing.event.AncestorListener() {
-        public void ancestorAdded(javax.swing.event.AncestorEvent e) {
-            txtNombrePartido.requestFocusInWindow();
-        }
-        public void ancestorRemoved(javax.swing.event.AncestorEvent e) {}
-        public void ancestorMoved(javax.swing.event.AncestorEvent e) {}
-    });
-    
-    // Habilitar ciclo de foco (para volver al inicio al llegar al final)
-    setFocusCycleRoot(true);
-}   
-    //Getters
-    public javax.swing.JTextField getTxtNombrePartido() { return txtNombrePartido; }
-    public javax.swing.JTextField getTxtCantVotos() { return txtCantVotos; }
-    public javax.swing.JButton getBtnCargar() { return btnCargar; }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

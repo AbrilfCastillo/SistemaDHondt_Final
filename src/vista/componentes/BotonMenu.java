@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class BotonMenu extends JButton {
 
-    // 🎨 Colores
+    //Colores
     private Color bgColor = new Color(132, 155, 191);
     private Color textColor = new Color(228, 235, 247);
 
@@ -16,11 +16,11 @@ public class BotonMenu extends JButton {
     private Color activeBgColor = new Color(255, 255, 255);
     private Color activeTextColor = new Color(34, 53, 84);
 
-    // 🔁 Estados
+    //Estados
     private boolean hover = false;
     private boolean active = false;
 
-    // 🖼️ iconos
+    //Iconos
     private Icon iconNormal;
     private Icon iconHover;
     private Icon iconActive;
@@ -47,7 +47,7 @@ public class BotonMenu extends JButton {
         setIconTextGap(10);
         setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 5));
 
-        // 🖱️ Hover
+        //Hover
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -63,21 +63,21 @@ public class BotonMenu extends JButton {
         });
     }
 
-    // ==============================
-    // ✔️ Constructor vacio (NECESARIO para NetBeans)
-    // ==============================
+
+    //Constructor vacio (NECESARIO para NetBeans)
+
     public BotonMenu() {
         super();
         inicializar();
     }
 
-    // ✔️ Constructor simple
+    //Constructor simple
     public BotonMenu(String text) {
         super(text);
         inicializar();
     }
 
-    // ✔️ Constructor completo con iconos
+    //Constructor completo con iconos
     public BotonMenu(String text, Icon iconNormal, Icon iconHover, Icon iconActive) {
         super(text);
 
@@ -92,9 +92,9 @@ public class BotonMenu extends JButton {
         }
     }
 
-    // ==============================
-    // 🎨 LoGICA DE ESTILO
-    // ==============================
+
+    //Logica de estilo
+
     private void actualizarEstilo() {
 
         if (active) {
@@ -113,9 +113,9 @@ public class BotonMenu extends JButton {
         repaint();
     }
 
-    // ==============================
-    // 🔥 MeTODOS PuBLICOS
-    // ==============================
+
+    //Metodos publicos
+
 
     // activar/desactivar boton
     public void setActive(boolean active) {
@@ -127,7 +127,7 @@ public class BotonMenu extends JButton {
         return active;
     }
 
-    // asignar iconos despues (ideal para diseñador)
+    // asignar iconos despues
     public void setIconos(Icon normal, Icon hover, Icon active) {
         this.iconNormal = normal;
         this.iconHover = hover;
@@ -136,9 +136,9 @@ public class BotonMenu extends JButton {
         setIcon(normal);
     }
 
-    // ==============================
-    // 🖌️ PINTADO
-    // ==============================
+
+    //Pintado
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();

@@ -9,7 +9,7 @@ public class Partido {
     private int votos;
     
     /**
-     * @param id identificador inico del partido
+     * @param id identificador unico del partido
      * @param nombre nombre del partido
      * @param votos cantidad de votos obtenidos
      */

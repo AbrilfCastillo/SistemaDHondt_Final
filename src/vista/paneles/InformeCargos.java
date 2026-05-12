@@ -17,6 +17,10 @@ import vista.componentes.Estilo;
 public class InformeCargos extends javax.swing.JPanel {
 
     private JPanel pnlViewer;
+    private javax.swing.JButton btnVolver;
+
+    // Callback que avisa al controlador cuando se restaura el formulario
+    private Runnable onFormularioRestaurado;
 
     /**
      * Inicializa el panel aplicando estilos a los componentes.
@@ -32,7 +36,6 @@ public class InformeCargos extends javax.swing.JPanel {
         Estilo.aplicarComboBox(cmbPorcentaje);
         Estilo.aplicarBoton(btnAceptar);
         Estilo.aplicarCard(this);
-        
 
         this.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent e) {
@@ -43,16 +46,25 @@ public class InformeCargos extends javax.swing.JPanel {
         });
 
         setFocusCycleRoot(true);
-    
+
         // Redimensiona el viewer si el panel cambia de tamaño
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 if (pnlViewer != null) {
-                    pnlViewer.setBounds(0, 0, getWidth(), getHeight());
+                    pnlViewer.setBounds(0, 50, getWidth(), getHeight() - 50);
                 }
             }
         });
+    }
+
+    /**
+     * Registra el callback que se ejecuta cuando el formulario es restaurado.
+     * El controlador lo usa para reconectarse a los nuevos componentes.
+     * @param callback accion a ejecutar al restaurar el formulario
+     */
+    public void setOnFormularioRestaurado(Runnable callback) {
+        this.onFormularioRestaurado = callback;
     }
 
     /**
@@ -65,20 +77,8 @@ public class InformeCargos extends javax.swing.JPanel {
     }
 
     /**
-     * Vuelve a mostrar todos los componentes del formulario original,
-     * excluyendo el panel del viewer si todavia existe.
-     */
-    private void mostrarComponentesFormulario() {
-        for (Component c : getComponents()) {
-            if (c != pnlViewer) {
-                c.setVisible(true);
-            }
-        }
-    }
-
-    /**
      * Oculta el formulario y muestra el informe JasperReports embebido.
-     * Usa null layout para posicionar el viewer ocupando todo el panel.
+     * Agrega un boton "Volver" en la parte superior para poder regresar al formulario.
      * @param print resultado del llenado del informe listo para visualizar
      */
     public void mostrarInforme(JasperPrint print) {
@@ -87,34 +87,67 @@ public class InformeCargos extends javax.swing.JPanel {
         if (pnlViewer != null) {
             remove(pnlViewer);
         }
+        if (btnVolver != null) {
+            remove(btnVolver);
+        }
 
         // Null layout para posicionar manualmente
         setLayout(null);
 
+        // Boton volver sobre el viewer
+        btnVolver = new javax.swing.JButton("← Volver");
+        Estilo.aplicarBoton(btnVolver);
+        btnVolver.setBounds(10, 8, 120, 35);
+        btnVolver.addActionListener(e -> mostrarFormulario());
+
         pnlViewer = new JPanel(new BorderLayout());
         pnlViewer.add(new JRViewer(print), BorderLayout.CENTER);
-        pnlViewer.setBounds(0, 0, getWidth(), getHeight());
+        pnlViewer.setBounds(0, 50, getWidth(), getHeight() - 50);
 
+        add(btnVolver);
         add(pnlViewer);
         revalidate();
         repaint();
     }
 
     /**
-     * Remueve el viewer, restaura el GroupLayout original
-     * y vuelve a mostrar el formulario.
+     * Remueve el viewer y el boton volver, recrea el formulario original
+     * con todos sus estilos y notifica al controlador para que reconecte los listeners.
      */
     public void mostrarFormulario() {
-        if (pnlViewer != null) {
-            remove(pnlViewer);
-            pnlViewer = null;
-        }
+        // Limpia todo el panel
+        removeAll();
 
-        // Restaura el layout original de NetBeans
+        // Resetea el layout al GroupLayout original recreando los componentes
         initComponents();
-        mostrarComponentesFormulario();
+
+        // Vuelve a aplicar estilos porque initComponents() recrea los componentes
+        Estilo.aplicarSubtitulo(lblInfCargos);
+        Estilo.aplicarTexto(lblCantCargos);
+        Estilo.aplicarTexto(lblPorcentaje);
+        Estilo.aplicarSeparadorTitulo(sepTituloForm);
+        Estilo.aplicarTextField(txtCantCargos);
+        Estilo.aplicarComboBox(cmbPorcentaje);
+        Estilo.aplicarBoton(btnAceptar);
+        Estilo.aplicarCard(this);
+
+        // Rehabilita el boton aceptar por si quedo deshabilitado
+        btnAceptar.setEnabled(true);
+
+        // Limpia las referencias anteriores
+        pnlViewer = null;
+        btnVolver = null;
+
         revalidate();
         repaint();
+
+        // Notifica al controlador para que reconecte sus listeners al nuevo btnAceptar
+        if (onFormularioRestaurado != null) {
+            onFormularioRestaurado.run();
+        }
+
+        // Devuelve el foco al campo de cargos
+        txtCantCargos.requestFocusInWindow();
     }
 
     // Getters

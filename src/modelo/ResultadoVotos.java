@@ -1,9 +1,9 @@
 package modelo;
 
 /**
- * Representa un cociente del cilculo D'Hondt que ocupi un cargo.
+ * Representa un cociente del calculo D'Hondt que ocupo un cargo.
  * Almacena el resultado de dividir los votos de un partido por un indice,
- * junto con su posiciin en el ranking global.
+ * junto con su posicion en el ranking global.
  */
 public class ResultadoVotos {
     private int id;
@@ -17,8 +17,8 @@ public class ResultadoVotos {
     /**
      * @param fk_idPartido identificador del partido al que pertenece este cociente
      * @param cantidadVotos resultado de dividir los votos del partido por el indice
-     * @param orden posiciin en el ranking global de cocientes
-     * @param indice divisor usado en el cilculo (1, 2, 3...)
+     * @param orden posicion en el ranking global de cocientes
+     * @param indice divisor usado en el calculo (1, 2, 3...)
      * @param porcentaje porcentaje del partido sobre el total de votos
      * @param totalVotos suma de votos de todos los partidos
      */
