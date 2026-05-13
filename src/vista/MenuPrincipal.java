@@ -31,6 +31,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Guarda el nombre del panel actualmente visible
     private String panelActual = "pnlInicio";
+    
+    private InformeDivision o6;
+    private InformeAnalisisPartidos o7;
+    private InformePartidosRegistrados o8;
 
     /**
      * Constructor principal de la ventana.
@@ -82,13 +86,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         InformeCargos o5 = new InformeCargos();
         new ControladorInformeCargos(o5);
 
-        InformeDivision o6 = new InformeDivision();
+        this.o6 = new InformeDivision();
         new ControladorInformeDivision(o6, this);
 
-        InformeAnalisisPartidos o7 = new InformeAnalisisPartidos();
+        this.o7 = new InformeAnalisisPartidos();
         new ControladorInformeAnalisisPartidos(o7, this);
         
-        InformePartidosRegistrados o8 = new InformePartidosRegistrados();
+        this.o8 = new InformePartidosRegistrados();
         new ControladorInformePartidosRegistrados(o8, this);
 
         /*
@@ -106,7 +110,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         // Muestra el panel inicial
         mostrarPanel("pnlInicio", "Inicio", null);
-        SwingUtilities.invokeLater(() -> btnCargarPartido.requestFocusInWindow());
+        SwingUtilities.invokeLater(() -> {
+            btnCargarPartido.setFocusable(true);
+            btnCargarPartido.requestFocusInWindow();
+        });
     }
 
     /**
@@ -130,6 +137,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
             // Elimina todos los datos
             SistemaDAO.eliminarDatos();
+            
+            //Limpia informes
+            o6.limpiar();
+            o7.limpiar();
+            o8.limpiar();
 
             JOptionPane.showMessageDialog(
                 this,
@@ -327,11 +339,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
      * @param titulo Titulo mostrado en pantalla
      * @param botonActivo Boton seleccionado actualmente
      */
-    private void mostrarPanel(
-        String nombre,
-        String titulo,
-        BotonMenu botonActivo
-    ) {
+    private void mostrarPanel(String nombre,String titulo,BotonMenu botonActivo) {
 
         // Obtiene el CardLayout
         CardLayout card =
@@ -353,6 +361,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         // Guarda el panel actual
         panelActual = nombre;
+
+        //En panel inicio el foco esta en el primer boton de menu
+        if ("pnlInicio".equals(nombre)) {
+            SwingUtilities.invokeLater(() -> btnCargarPartido.requestFocusInWindow());
+            }
     }
 
     /**

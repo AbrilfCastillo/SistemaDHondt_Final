@@ -46,6 +46,15 @@ public class InformeDivision extends javax.swing.JPanel {
         revalidate();
         repaint();
     }
+    
+    public void limpiar() {
+    if (pnlViewer != null) {
+        remove(pnlViewer);
+        pnlViewer = null;
+        revalidate();
+        repaint();
+    }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

@@ -25,9 +25,7 @@ public class BotonMenu extends JButton {
     private Icon iconHover;
     private Icon iconActive;
 
-    // ==============================
-    // 🔧 INICIALIZACIoN COMuN
-    // ==============================
+    //Inicializacion
     private void inicializar() {
 
         setPreferredSize(new Dimension(200, 40));
@@ -39,7 +37,7 @@ public class BotonMenu extends JButton {
         setContentAreaFilled(false);
         setOpaque(false);
         setForeground(textColor);
-
+        setFocusable(true);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -47,7 +45,18 @@ public class BotonMenu extends JButton {
         setIconTextGap(10);
         setBorder(BorderFactory.createEmptyBorder(5, 15, 5, 5));
 
-        //Hover
+        //Hover y focus
+        addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                actualizarEstilo();
+            }
+
+        @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                actualizarEstilo();
+            }
+        });
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -101,7 +110,7 @@ public class BotonMenu extends JButton {
             setForeground(activeTextColor);
             if (iconActive != null) setIcon(iconActive);
 
-        } else if (hover) {
+        } else if (hover || isFocusOwner()) {
             setForeground(hovertextColor);
             if (iconHover != null) setIcon(iconHover);
 
@@ -147,7 +156,7 @@ public class BotonMenu extends JButton {
 
         if (active) {
             g2.setColor(activeBgColor);
-        } else if (hover) {
+        } else if (hover || isFocusOwner()) {
             g2.setColor(hoverbgColor);
         } else {
             g2.setColor(bgColor);
