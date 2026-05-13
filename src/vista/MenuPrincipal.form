@@ -245,9 +245,9 @@
                 <Property name="inheritsPopupMenu" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="vista.componentes.BotonMenu" name="btnInfCargos">
+            <Component class="vista.componentes.BotonMenu" name="btnInfPartidosReg">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Repartici&#xf3;n de cargos"/>
+                <Property name="text" type="java.lang.String" value="Partidos pol&#xed;ticos"/>
               </Properties>
             </Component>
             <Component class="javax.swing.Box$Filler" name="filler3">
@@ -266,9 +266,9 @@
                 <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.RigidArea"/>
               </AuxValues>
             </Component>
-            <Component class="vista.componentes.BotonMenu" name="btnInfDivision">
+            <Component class="vista.componentes.BotonMenu" name="btnInfCargos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Divisi&#xf3;n de votos"/>
+                <Property name="text" type="java.lang.String" value="Repartici&#xf3;n de cargos"/>
               </Properties>
             </Component>
             <Component class="javax.swing.Box$Filler" name="filler4">
@@ -287,12 +287,33 @@
                 <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.RigidArea"/>
               </AuxValues>
             </Component>
+            <Component class="vista.componentes.BotonMenu" name="btnInfDivision">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Divisi&#xf3;n de votos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.Box$Filler" name="filler5">
+              <Properties>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[0, 15]"/>
+                </Property>
+                <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[0, 15]"/>
+                </Property>
+                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[0, 15]"/>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.RigidArea"/>
+              </AuxValues>
+            </Component>
             <Component class="vista.componentes.BotonMenu" name="btnInfPartidos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Partidos pol&#xed;ticos"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.Box$Filler" name="filler5">
+            <Component class="javax.swing.Box$Filler" name="filler6">
               <Properties>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[0, 15]"/>

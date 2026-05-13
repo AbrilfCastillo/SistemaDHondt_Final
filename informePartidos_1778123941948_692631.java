@@ -15,7 +15,7 @@ import java.net.*;
 /**
  *
  */
-public class informePartidos_1778123941948_692631 extends JREvaluator
+public class InformeAnalisisPartidos_1778123941948_692631 extends JREvaluator
 {
 
 

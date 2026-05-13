@@ -5,10 +5,12 @@ import controladores.ControladorCargarPartido;
 import controladores.ControladorInformeCargos;
 import controladores.ControladorModificarPartido;
 import controladores.ControladorInformeDivision;
-import controladores.ControladorInformePartidos;
+import controladores.ControladorInformeAnalisisPartidos;
+import controladores.ControladorInformePartidosRegistrados;
 import dao.SistemaDAO;
 import vista.paneles.InformeDivision;
-import vista.paneles.InformePartidos;
+import vista.paneles.InformeAnalisisPartidos;
+import vista.paneles.InformePartidosRegistrados;
 import vista.paneles.Inicio;
 import vista.paneles.BajaPartido;
 import vista.paneles.ModificarPartido;
@@ -83,8 +85,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         InformeDivision o6 = new InformeDivision();
         new ControladorInformeDivision(o6, this);
 
-        InformePartidos o7 = new InformePartidos();
-        new ControladorInformePartidos(o7, this);
+        InformeAnalisisPartidos o7 = new InformeAnalisisPartidos();
+        new ControladorInformeAnalisisPartidos(o7, this);
+        
+        InformePartidosRegistrados o8 = new InformePartidosRegistrados();
+        new ControladorInformePartidosRegistrados(o8, this);
 
         /*
          * Agrega los paneles al CardLayout
@@ -96,7 +101,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pnlFormularios.add(o4, "pnlBajaPartido");
         pnlFormularios.add(o5, "pnlInformeCargos");
         pnlFormularios.add(o6, "pnlInformeDivision");
-        pnlFormularios.add(o7, "pnlInformePartidos");
+        pnlFormularios.add(o7, "pnlInformeAnalisisPartidos");
+        pnlFormularios.add(o8, "pnlInformePartidosRegistrados");
 
         // Muestra el panel inicial
         mostrarPanel("pnlInicio", "Inicio", null);
@@ -215,8 +221,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
             ),
             null
         );
-
-        btnInfPartidos.setText("Partidos politicos");
+        btnInfPartidosReg.setText("Partidos Registrados");
+        btnInfPartidosReg.setIconos(
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/partidosNotHover.png"
+                )
+            ),
+            new ImageIcon(
+                getClass().getResource(
+                    "/recursos/partidosHover.png"
+                )
+            ),
+            null
+        );
+        btnInfPartidos.setText("Analisis de Partidos");
         btnInfPartidos.setIconos(
             new ImageIcon(
                 getClass().getResource(
@@ -238,6 +257,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Estilo.configurarTeclado(btnInfCargos);
         Estilo.configurarTeclado(btnInfDivision);
         Estilo.configurarTeclado(btnInfPartidos);
+        Estilo.configurarTeclado(btnInfPartidosReg);
     }
 
     /**
@@ -256,7 +276,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnModificarPartido.addActionListener(e ->
             mostrarPanel(
                 "pnlModificarPartido",
-                "Modificar Datos de un Partido",
+                "Modificar Datos de Partido",
                 btnModificarPartido
             )
         );
@@ -272,7 +292,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInfCargos.addActionListener(e ->
             mostrarPanel(
                 "pnlInformeCargos",
-                "Informe de Reparticion de Cargos",
+                "Reparticion de Cargos",
                 btnInfCargos
             )
         );
@@ -280,15 +300,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInfDivision.addActionListener(e ->
             mostrarPanel(
                 "pnlInformeDivision",
-                "Informe de Division de Votos",
+                "Division de Votos",
                 btnInfDivision
             )
         );
-
+        btnInfPartidosReg.addActionListener(e ->
+            mostrarPanel(
+                "pnlInformePartidosRegistrados",
+                "Partidos Registrados",
+                btnInfPartidosReg
+            )
+        );
         btnInfPartidos.addActionListener(e ->
             mostrarPanel(
-                "pnlInformePartidos",
-                "Informe de Partidos",
+                "pnlInformeAnalisisPartidos",
+                "Analisis de Partidos",
                 btnInfPartidos
             )
         );
@@ -340,6 +366,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         btnInfCargos.setActive(false);
         btnInfDivision.setActive(false);
         btnInfPartidos.setActive(false);
+        btnInfPartidosReg.setActive(false);
     }
 
     /**
@@ -384,6 +411,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     public vista.componentes.BotonMenu getBtnInfPartidos() {
         return btnInfPartidos;
     }
+    
+    public vista.componentes.BotonMenu getBtnInfPartidosReg() {
+        return btnInfPartidosReg;
+    }
 
         
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -402,12 +433,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15));
         btnBajaPartido = new vista.componentes.BotonMenu();
         lblInformes = new javax.swing.JLabel();
-        btnInfCargos = new vista.componentes.BotonMenu();
+        btnInfPartidosReg = new vista.componentes.BotonMenu();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15));
-        btnInfDivision = new vista.componentes.BotonMenu();
+        btnInfCargos = new vista.componentes.BotonMenu();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 15));
-        btnInfPartidos = new vista.componentes.BotonMenu();
+        btnInfDivision = new vista.componentes.BotonMenu();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15));
+        btnInfPartidos = new vista.componentes.BotonMenu();
+        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15));
         btnReset = new javax.swing.JButton();
         pnlContenido = new javax.swing.JPanel();
         pnlTopContenido = new javax.swing.JPanel();
@@ -491,17 +524,21 @@ public class MenuPrincipal extends javax.swing.JFrame {
         lblInformes.setInheritsPopupMenu(false);
         pnlBotones.add(lblInformes);
 
+        btnInfPartidosReg.setText("Partidos políticos");
+        pnlBotones.add(btnInfPartidosReg);
+        pnlBotones.add(filler3);
+
         btnInfCargos.setText("Repartición de cargos");
         pnlBotones.add(btnInfCargos);
-        pnlBotones.add(filler3);
+        pnlBotones.add(filler4);
 
         btnInfDivision.setText("División de votos");
         pnlBotones.add(btnInfDivision);
-        pnlBotones.add(filler4);
+        pnlBotones.add(filler5);
 
         btnInfPartidos.setText("Partidos políticos");
         pnlBotones.add(btnInfPartidos);
-        pnlBotones.add(filler5);
+        pnlBotones.add(filler6);
 
         btnReset.setFont(new java.awt.Font("Segoe UI Semibold", 0, 15)); // NOI18N
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
@@ -580,6 +617,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private vista.componentes.BotonMenu btnInfCargos;
     private vista.componentes.BotonMenu btnInfDivision;
     private vista.componentes.BotonMenu btnInfPartidos;
+    private vista.componentes.BotonMenu btnInfPartidosReg;
     private vista.componentes.BotonMenu btnModificarPartido;
     private javax.swing.JButton btnReset;
     private javax.swing.Box.Filler filler1;
@@ -587,6 +625,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
+    private javax.swing.Box.Filler filler6;
     private javax.swing.JLabel lblInformes;
     private javax.swing.JLabel lblPartidos;
     private javax.swing.JLabel lblTituloForm;

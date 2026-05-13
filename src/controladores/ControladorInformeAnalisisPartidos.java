@@ -2,7 +2,7 @@ package controladores;
 
 import dao.Conexion;
 import vista.MenuPrincipal;
-import vista.paneles.InformePartidos;
+import vista.paneles.InformeAnalisisPartidos;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -15,10 +15,10 @@ import net.sf.jasperreports.engine.JasperReport;
  * Controlador encargado de generar y mostrar
  * el informe de partidos registrados.
  */
-public class ControladorInformePartidos {
+public class ControladorInformeAnalisisPartidos {
 
     // Referencia a la vista donde se mostrara el informe
-    private final InformePartidos vista;
+    private final InformeAnalisisPartidos vista;
 
     // Ruta del archivo JRXML del reporte
     private static final String RUTA_JRXML =
@@ -31,8 +31,8 @@ public class ControladorInformePartidos {
      * @param vista Panel donde se mostrara el informe
      * @param menu Ventana principal del sistema
      */
-    public ControladorInformePartidos(
-        InformePartidos vista,
+    public ControladorInformeAnalisisPartidos(
+        InformeAnalisisPartidos vista,
         MenuPrincipal menu
     ) {
 

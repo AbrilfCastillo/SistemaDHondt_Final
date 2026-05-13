@@ -10,14 +10,14 @@ import vista.componentes.Estilo;
  * Panel que muestra el informe de partidos políticos generado con JasperReports.
  * El informe se embebe directamente en el panel principal.
  */
-public class InformePartidos extends javax.swing.JPanel {
+public class InformePartidosRegistrados extends javax.swing.JPanel {
 
     private JPanel pnlViewer;
 
     /**
      * Inicializa el panel con un BorderLayout y aplica los estilos base.
      */
-    public InformePartidos() {
+    public InformePartidosRegistrados() {
         initComponents(); // Mantiene la inicialización de dimensiones de NetBeans
         setLayout(new BorderLayout());
         Estilo.aplicarCard(this);
